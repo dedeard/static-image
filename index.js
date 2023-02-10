@@ -131,7 +131,7 @@ createServer(async (req, res) => {
     res.setHeader('content-type', mime)
     res.end(buffer, 'binary')
   } catch (e) {
-    // console.log(e)
+    console.log(e)
     res.statusCode = 500
     res.end()
   }
