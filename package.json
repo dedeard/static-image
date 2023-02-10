@@ -6,10 +6,8 @@
   "author": "dede ariansya <dedeariansya1@gmail.com>",
   "license": "MIT",
   "private": false,
-  "nodemonConfig": {
-    "ignore": [
-      "**/*.json"
-    ]
+  "engines": {
+    "node": "14.x"
   },
   "scripts": {
     "start": "node server.js",
@@ -24,5 +22,10 @@
     "file-type": "16.3.0",
     "node-json-db": "^2.1.4",
     "sharp": "^0.31.3"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.json"
+    ]
   }
 }
