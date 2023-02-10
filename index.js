@@ -1,4 +1,6 @@
-function handler(req, res) {
+const { createServer } = require('http')
+
+createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
 
   if (req.method !== 'GET') {
@@ -7,6 +9,4 @@ function handler(req, res) {
   }
 
   res.end(JSON.stringify({ status: 'ok' }))
-}
-
-module.exports = handler
+}).listen(process.env.PORT || 4000)
