@@ -133,7 +133,7 @@ createServer(async (req, res) => {
   } catch (e) {
     console.log(e)
     res.statusCode = 500
-    res.end()
+    res.end(JSON.stringify(e))
   }
 }).listen(process.env.PORT || 4000)
 
