@@ -106,7 +106,7 @@ createServer(async (req, res) => {
     const fileUrl = routes.splice(1).join('/')
 
     const key = crypto.createHash('md5').update(req.url).digest('hex')
-    const cacheName = path.join(__dirname, 'cache', key)
+    const cacheName = path.join(__dirname, 'tmp/cache', key)
     const fileExists = await pathExists(cacheName)
     let buffer, mime
     if (!fileExists) {
@@ -147,7 +147,7 @@ setInterval(async () => {
       const now = new Date()
 
       if (now > expiredAt) {
-        const cacheName = path.join(__dirname, 'cache', key)
+        const cacheName = path.join(__dirname, 'tmp/cache', key)
         const fileExists = await pathExists(cacheName)
         if (fileExists) await fs.promises.unlink(cacheName)
         await db.delete(key)
