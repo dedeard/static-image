@@ -10,8 +10,8 @@
     "node": "16.x"
   },
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon --ignore **/*.json index.js",
+    "start": "node src/index.js",
+    "dev": "nodemon --ignore **/*.json src/index.js",
     "format": "prettier --write **/*.js"
   },
   "devDependencies": {
