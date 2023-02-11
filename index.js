@@ -7,7 +7,7 @@ const sharp = require('sharp')
 const fileType = require('file-type')
 const { JsonDB, Config } = require('node-json-db')
 
-const db = new JsonDB(new Config('./tmp/db', true, false, '/'))
+const db = new JsonDB(new Config('tmp/db', true, false, '/'))
 
 const pathExists = async (path) => {
   try {
@@ -20,7 +20,7 @@ const pathExists = async (path) => {
 
 const mkdirIfNotExists = async (path) => {
   const exists = await pathExists(path)
-  if (!exists) await fs.promises.mkdir(path)
+  if (!exists) await fs.promises.mkdir(path, { recursive: true })
 }
 
 const isPositiveNumber = (str) => {
@@ -106,7 +106,7 @@ createServer(async (req, res) => {
     const fileUrl = routes.splice(1).join('/')
 
     const key = crypto.createHash('md5').update(req.url).digest('hex')
-    const cacheName = path.join(__dirname, 'tmp/cache', key)
+    const cacheName = path.join('tmp/cache', key)
     const fileExists = await pathExists(cacheName)
     let buffer, mime
     if (!fileExists) {
@@ -118,7 +118,7 @@ createServer(async (req, res) => {
         .toFormat(format.ext, { quality: options.q })
         .toBuffer()
 
-      await mkdirIfNotExists(path.join(__dirname, 'cache'))
+      await mkdirIfNotExists('tmp/cache')
       await fs.promises.writeFile(cacheName, buffer)
       await db.push('/' + key, Date.now())
     } else {
@@ -147,7 +147,7 @@ setInterval(async () => {
       const now = new Date()
 
       if (now > expiredAt) {
-        const cacheName = path.join(__dirname, 'tmp/cache', key)
+        const cacheName = path.join('tmp/cache', key)
         const fileExists = await pathExists(cacheName)
         if (fileExists) await fs.promises.unlink(cacheName)
         await db.delete(key)
