@@ -38,6 +38,7 @@ const parseOptions = (str) => {
       options[key] = Number(val)
     }
   }
+
   return options
 }
 
@@ -63,7 +64,7 @@ const getFormat = async (buffer) => {
 const downloadImage = async (url) => {
   const maxSize = 1024 * 1024 * 5 //5 MB
   return new Promise(async (resolve, reject) => {
-    https.get('https://' + url, (res) => {
+    const req = https.get('https://' + url, (res) => {
       const data = []
       let size = 0
 
@@ -84,6 +85,8 @@ const downloadImage = async (url) => {
 
       res.on('error', reject)
     })
+    req.end()
+    req.on('error', reject)
   })
 }
 
@@ -131,9 +134,8 @@ createServer(async (req, res) => {
     res.setHeader('content-type', mime)
     res.end(buffer, 'binary')
   } catch (e) {
-    console.log(e)
     res.statusCode = 500
-    res.end(JSON.stringify(e))
+    res.end(JSON.stringify({ message: e.message }))
   }
 }).listen(process.env.PORT || 4000)
 
@@ -154,6 +156,6 @@ setInterval(async () => {
       }
     }
   } catch (e) {
-    console.log(e)
+    // console.log(e)
   }
 }, 1000 * 60)
