@@ -7,7 +7,7 @@ const sharp = require('sharp')
 const fileType = require('file-type')
 const { JsonDB, Config } = require('node-json-db')
 
-const db = new JsonDB(new Config('db', true, false, '/'))
+const db = new JsonDB(new Config('./tmp/db', true, false, '/'))
 
 const pathExists = async (path) => {
   try {
