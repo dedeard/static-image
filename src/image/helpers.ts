@@ -38,7 +38,7 @@ export async function getFormatFromBuffer(buffer: Buffer) {
 
 export function isMimeSupported(mime: any) {
   const supported: SupportMime[] = ['image/png', 'image/jpeg', 'image/webp']
-  if (!supported.includes(mime)) return true
+  if (supported.includes(mime)) return true
   return false
 }
 
