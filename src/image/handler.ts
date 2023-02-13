@@ -10,7 +10,7 @@ const handler = catchAsync(async (req, res) => {
     return res.end()
   }
 
-  const routes = req.params[0].substring(1).split('/')
+  const routes = req.params[0].split('/')
   if (routes.length < 2) return res.sendStatus(404)
 
   const options = helpers.parseParams(routes[0])

@@ -2,8 +2,8 @@ import http from 'http'
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import config from './config'
-import imageRoutes from './image/routes'
-import avatarRoutes from './avatar/routes'
+import imageHandler from './image/handler'
+import avatarHandler from './avatar/handler'
 
 class App {
   app: express.Application
@@ -22,8 +22,8 @@ class App {
   }
 
   router() {
-    this.app.use('/image', imageRoutes)
-    this.app.use('/avatar', avatarRoutes)
+    this.app.use('/image/*', imageHandler)
+    this.app.use('/avatar/*', avatarHandler)
 
     // Catch 404
     this.app.use((req, res) => {
