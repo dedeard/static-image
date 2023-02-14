@@ -1,0 +1,22 @@
+{
+  "scripts": {
+    "build:css": "postcss ./tailwind.css -o ./assets/css/main.css",
+    "watch": "nodemon --exec npm run build:css",
+    "dev": "bundle exec jekyll serve"
+  },
+  "nodemonConfig": {
+    "ext": "html,md,css,js",
+    "ignore": [
+      "assets",
+      "_site",
+      "_.jekyll-cache"
+    ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "nodemon": "^2.0.20",
+    "postcss": "^8.4.21",
+    "postcss-cli": "^10.1.0",
+    "tailwindcss": "^3.2.6"
+  }
+}
