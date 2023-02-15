@@ -4,6 +4,7 @@ import cors from 'cors'
 import config from './config'
 import imageHandler from './image/handler'
 import avatarHandler from './avatar/handler'
+import placeholderHandler from './placeholder/handler'
 
 class App {
   app: express.Application
@@ -24,6 +25,7 @@ class App {
   router() {
     this.app.use('/image/*', imageHandler)
     this.app.use('/avatar/*', avatarHandler)
+    this.app.use('/placeholder/*', placeholderHandler)
 
     // Catch 404
     this.app.use((req, res) => {
