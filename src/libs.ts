@@ -22,7 +22,7 @@ export function isValidHex(color: string) {
 export function formatColor(color?: string, defaultColor?: string) {
   color = normalizeHex(color || '')
   if (isValidHex(color)) return color
-  return defaultColor as string
+  return normalizeHex(defaultColor || '')
 }
 
 export function explodeText(text: string, max: number): string {
