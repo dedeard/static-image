@@ -71,7 +71,7 @@ async function handler(req: RequestType, res: Response, next: NextFunction) {
 
     res.header({
       'cache-control': `public, max-age=${config.cacheAge}, must-revalidate`,
-      'content-type': `image/${params.ext}`,
+      'content-type': `image/${params.ext == 'jpg' ? 'jpeg' : params.ext}`,
       'content-length': buffer.length,
     })
     res.end(buffer, 'binary')
