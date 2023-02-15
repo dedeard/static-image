@@ -2,9 +2,10 @@ import http from 'http'
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import config from './config'
-import imageHandler from './image/handler'
-import avatarHandler from './avatar/handler'
-import placeholderHandler from './placeholder/handler'
+import imageService from './services/image.service'
+import avatarService from './services/avatar.service'
+import placeholderService from './services/placeholder.service'
+import ogService from './services/og.service'
 
 class App {
   app: express.Application
@@ -19,14 +20,16 @@ class App {
 
     this.app.use(cors())
 
-    this.router()
+    // routing
+    imageService(this.app)
+    avatarService(this.app)
+    placeholderService(this.app)
+    ogService(this.app)
+
+    this.catchErrors()
   }
 
-  router() {
-    this.app.use('/image/*', imageHandler)
-    this.app.use('/avatar/*', avatarHandler)
-    this.app.use('/placeholder/*', placeholderHandler)
-
+  catchErrors() {
     // Catch 404
     this.app.use((req, res) => {
       res.statusCode = 404
