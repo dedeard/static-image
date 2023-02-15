@@ -26,8 +26,8 @@ function parseParams(req: RequestType) {
   let parsed = path.parse(req.params.name)
   let ext = (parsed.ext || '.webp').substring(1)
   let text = parsed.name
-  let color = formatColor(req.query.color, '000')
-  let bgColor = formatColor(req.query.bgcolor, 'fff')
+  let color = formatColor(req.query.color, config.colors.dark)
+  let bgColor = formatColor(req.query.bgcolor, config.colors.light)
   let sign = req.query.sign || ''
 
   if (!['webp', 'jpeg', 'jpg', 'png'].includes(ext)) ext = 'webp'

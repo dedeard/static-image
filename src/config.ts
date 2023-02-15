@@ -8,6 +8,10 @@ const config = {
   avatar: {
     maxSize: Number(process.env.AVATAR_MAX_SIZE || 600),
   },
+  colors: {
+    dark: process.env.DEFAULT_COLOR_DARK || '#111827',
+    light: process.env.DEFAULT_COLOR_LIGHT || '#f3f4f6',
+  },
 }
 
 export default config

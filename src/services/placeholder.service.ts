@@ -24,8 +24,8 @@ type Params = {
  */
 function parseParams(req: RequestType) {
   let ext = (path.parse(req.path).ext || '.webp').substring(1)
-  let color = formatColor(req.query.color, '000')
-  let bgColor = formatColor(req.query.bgcolor, 'fff')
+  let color = formatColor(req.query.color, config.colors.dark)
+  let bgColor = formatColor(req.query.bgcolor, config.colors.light)
   let width = 640
   let height = 480
 
