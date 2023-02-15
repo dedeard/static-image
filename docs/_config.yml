@@ -1,0 +1,34 @@
+url: static.dedeard.my.id
+
+twitter:
+  username: _dedeard
+  card: summary
+
+facebook:
+  app_id: 1234
+  publisher: 1234
+  admins: 1234
+
+social:
+  name: Dede ardiansya
+  links:
+    - https://dedeard.my.id
+    - https://twitter.com/_dedeard
+    - https://www.facebook.com/dedeard.ts
+    - https://www.linkedin.com/in/dedeard
+    - https://github.com/dedeard
+    - https://www.instagram.com/dedeard.js
+
+# Build settings
+plugins:
+  - jekyll-seo-tag
+
+postcss:
+  cache: false
+
+exclude:
+  - package.json
+  - postcss.config.js
+  - tailwind.config.js
+  - yarn.lock
+  - tailwind.css
