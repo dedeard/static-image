@@ -1,5 +1,7 @@
+import path from 'path'
 import { Application, NextFunction, Request, Response } from 'express'
 import sharp from 'sharp'
+import isValidDomain from 'is-valid-domain'
 import config from '../config'
 import { getFormatFromBuffer, urlToBuffer } from '../libs'
 
@@ -8,7 +10,7 @@ import { getFormatFromBuffer, urlToBuffer } from '../libs'
  *
  */
 type RequestType = Request<
-  { params?: string; '0': string },
+  { params: string; '0': string },
   {},
   {},
   { [key: string]: string }
@@ -31,13 +33,20 @@ type Params = {
  *
  */
 function parseParams(req: RequestType) {
+  const paramsIsDomain = isValidDomain(req.params.params)
   const options: { [key: string]: string } = {}
-  for (let i of (req.params.params || '').split(',')) {
-    const ar = i.split('=')
-    if (ar.length === 2) options[ar[0]] = ar[1]
+
+  if (paramsIsDomain) {
+    for (let i of req.params.params.split(',')) {
+      const ar = i.split('=')
+      if (ar.length === 2) options[ar[0]] = ar[1]
+    }
   }
 
-  let url = req.params[0] + '?' + new URLSearchParams(req.query).toString()
+  let url: string = paramsIsDomain
+    ? path.join(req.params.params, req.params[0])
+    : req.params[0]
+  url += '?' + new URLSearchParams(req.query).toString()
   let quality = 100
   let width: number | undefined
   let height: number | undefined
