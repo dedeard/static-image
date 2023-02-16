@@ -36,7 +36,7 @@ function parseParams(req: RequestType) {
   const paramsIsDomain = isValidDomain(req.params.params)
   const options: { [key: string]: string } = {}
 
-  if (paramsIsDomain) {
+  if (!paramsIsDomain) {
     for (let i of req.params.params.split(',')) {
       const ar = i.split('=')
       if (ar.length === 2) options[ar[0]] = ar[1]
