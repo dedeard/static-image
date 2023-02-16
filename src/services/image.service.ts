@@ -112,6 +112,5 @@ async function handler(req: RequestType, res: Response, next: NextFunction) {
  *
  */
 export default function (app: Application) {
-  app.get('/image//*', handler)
   app.get('/image/:params/*', handler)
 }
