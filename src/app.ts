@@ -1,3 +1,4 @@
+import path from 'path'
 import http from 'http'
 import express, { Request, Response, Application } from 'express'
 import cors from 'cors'
@@ -30,6 +31,8 @@ class App {
       placeholderService(this.app)
       ogService(this.app)
     }
+
+    this.app.use(express.static(path.join(__dirname, '../public')))
 
     this.catchErrors()
   }
