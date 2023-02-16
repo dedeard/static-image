@@ -1,0 +1,16 @@
+version: "3.4"
+
+services:
+  static-image:
+    image: static-image-test
+
+    build:
+      context: .
+      target: test
+
+    volumes:
+      - ./:/app
+      - /app/node_modules
+
+    environment:
+      - PORT=3000

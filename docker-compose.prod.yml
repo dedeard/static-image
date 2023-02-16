@@ -1,0 +1,15 @@
+version: "3.4"
+
+services:
+  static-image:
+    image: static-image
+    
+    build:
+      context: .
+      target: production
+
+    environment:
+      - PORT=3000
+
+    ports:
+      - 3000:3000
