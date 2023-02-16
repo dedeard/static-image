@@ -1,5 +1,5 @@
 import http from 'http'
-import express, { Request, Response } from 'express'
+import express, { Request, Response, Application } from 'express'
 import cors from 'cors'
 import config from './config'
 import imageService from './services/image.service'
@@ -8,10 +8,10 @@ import placeholderService from './services/placeholder.service'
 import ogService from './services/og.service'
 
 class App {
-  app: express.Application
+  app: Application
   server: http.Server
 
-  constructor() {
+  constructor(service4test?: (app: Application) => void) {
     this.app = express()
     this.server = http.createServer(this.app)
 
@@ -20,11 +20,16 @@ class App {
 
     this.app.use(cors())
 
-    // routing
-    imageService(this.app)
-    avatarService(this.app)
-    placeholderService(this.app)
-    ogService(this.app)
+    if (service4test) {
+      // Test routing
+      service4test(this.app)
+    } else {
+      // Main routing
+      imageService(this.app)
+      avatarService(this.app)
+      placeholderService(this.app)
+      ogService(this.app)
+    }
 
     this.catchErrors()
   }
