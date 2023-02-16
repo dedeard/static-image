@@ -12,9 +12,9 @@ const { app } = new Application(imageService)
 const { expect, request } = chai
 
 describe('Testing Image Service', () => {
-  describe(`GET /image//${imgUrl}`, () => {
+  describe(`GET /image/${imgUrl}`, () => {
     it('Should be success generate image.', async () => {
-      const res = await request(app).get(`/image//${imgUrl}`)
+      const res = await request(app).get(`/image/${imgUrl}`)
       expect(res.status).to.equal(200)
       const format = await getFormatFromBuffer(res.body)
       expect(format.mime).to.equal(res.header['content-type'])
