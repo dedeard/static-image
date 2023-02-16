@@ -8,7 +8,7 @@ import { getFormatFromBuffer, urlToBuffer } from '../libs'
  *
  */
 type RequestType = Request<
-  { params: string; '0': string },
+  { params?: string; '0': string },
   {},
   {},
   { [key: string]: string }
@@ -32,7 +32,7 @@ type Params = {
  */
 function parseParams(req: RequestType) {
   const options: { [key: string]: string } = {}
-  for (let i of req.params.params.split(',')) {
+  for (let i of (req.params.params || '').split(',')) {
     const ar = i.split('=')
     if (ar.length === 2) options[ar[0]] = ar[1]
   }
@@ -112,5 +112,6 @@ async function handler(req: RequestType, res: Response, next: NextFunction) {
  *
  */
 export default function (app: Application) {
+  app.get('/image//*', handler)
   app.get('/image/:params/*', handler)
 }
