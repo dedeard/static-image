@@ -1,5 +1,5 @@
 const config = {
-  port: Number(process.env.PORT || 4000),
+  port: Number(process.env.PORT || 3000),
   cacheAge: 60 * 60 * Number(process.env.CACHE_AGE || 24),
   image: {
     maxInputSize: 1024 * 1024 * Number(process.env.IMAGE_MAX_INPUT_SIZE || 5),
