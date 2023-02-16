@@ -23,7 +23,7 @@
 
 <p align="center">
   <a href="https://www.buymeacoffee.com/dedeard">
-    <img src="https://cdn.dedeard.my.id/bmc-button.svg" alt="buymeacoffee" height="60" />
+    <img src="https://cdn.dedeard.my.id/bmc-button.svg" alt="buymeacoffee" height="50" />
   </a>
 </p>
 
