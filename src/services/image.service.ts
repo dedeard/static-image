@@ -98,7 +98,7 @@ async function handler(req: RequestType, res: Response, next: NextFunction) {
 
     res.header({
       'cache-control': `public, max-age=${config.cacheAge}, must-revalidate`,
-      'content-type': mime,
+      'content-type': mime == 'image/jpg' ? 'image/jpeg' : mime,
       'content-length': buffer.length,
     })
     res.end(buffer, 'binary')
