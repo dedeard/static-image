@@ -29,16 +29,17 @@
 
 <hr />
 
-
 # Getting Started
 
 ## Using Node.js
 
 ### Requirements
+
 - [Node.js](https://nodejs.org)
 - [Yarn](https://yarnpkg.com)
-  
+
 ### Run the app
+
 1. Clone this repo
 1. `yarn install` to install all required dependencies
 1. `yarn dev` to run development server and vscode debugging
@@ -46,15 +47,15 @@
 1. `yarn build` to compile the typescript code
 1. `yarn start` to run production server
 
-
-
 ## Using Docker
 
 ### Requirements
+
 - [Node.js](https://nodejs.org)
 - [Docker](https://docs.docker.com/desktop/)
-  
+
 ### Run the app
+
 1. Clone this repo
 2. `npm run docker:dev up` to run development server and vscode debugging
 3. `npm run docker:test up` to run unit testing
@@ -64,31 +65,36 @@
 
 # Api
 
-## Image
-### URL format: 
-- `http://localhost:3000/image/:image-url`
-- `http://localhost:3000/image/:options/:image-url`
-  
-Notes: *all requests must use* `GET` *method.*
+## Image Service
 
-Examples:
-- Without options `http://localhost:3000/image/cdn.dedeard.my.id/cat.jpg`
-- With options `http://localhost:3000/image/width=600,height=400/cdn.dedeard.my.id/cat.jpg`
+### URL format:
+
+- `https://cdn.dedeard.my.id/image/:image-url`
+- `https://cdn.dedeard.my.id/image/:options/:image-url`
+
+> Note: _all requests must use_ `GET` _or_ `HEAD` _method, otherwise it will be rejected._
+
+For examples:
+`/image/width=640,height=480/static.dedeard.my.id/kai.jpg`
+
+![Martial Peak - Yang kai](https://cdn.dedeard.my.id/image/width=640,height=480/static.dedeard.my.id/kai.jpg)
 
 ### Supported Image Types:
+
 - GIF
 - JPEG
 - PNG
 - WebP
 
 ### Options:
+
 **format=:string**
 
 Convert image format.
 
 Value: `webp - jpeg - jpg - png`
 
-Example: `/image/format=webp/cdn.dedeard.my.id/cat.jpg`
+For example: `/image/format=webp/static.dedeard.my.id/kai.jpg`
 
 <br />
 
@@ -98,8 +104,9 @@ Set new image quality in percentage.
 
 Value: `10 - 100`
 
-Example: `/image/quality=80/cdn.dedeard.my.id/cat.jpg`
+Default: `80`
 
+For example: `/image/quality=80/static.dedeard.my.id/kai.jpg`
 
 <br />
 
@@ -107,10 +114,9 @@ Example: `/image/quality=80/cdn.dedeard.my.id/cat.jpg`
 
 Set new image width in pixel.
 
-Value: `> 0`
+Value: `val > 0`
 
-Example: `/image/width=600/cdn.dedeard.my.id/cat.jpg`
-
+For example: `/image/width=600/static.dedeard.my.id/kai.jpg`
 
 <br />
 
@@ -118,83 +124,95 @@ Example: `/image/width=600/cdn.dedeard.my.id/cat.jpg`
 
 Set new image height in pixel.
 
-Value: `> 0`
+Value: `val > 0`
 
-Example: `/image/height=600/cdn.dedeard.my.id/cat.jpg`
-
+For example: `/image/height=600/static.dedeard.my.id/kai.jpg`
 
 <br />
 
-## Avatar
-### URL format: 
-- `http://localhost:3000/avatar/:nickname.:format?:options`
-  
-Notes: *all requests must use* `GET` *method.*
+## Avatar Service
 
-Examples:
-- Without options `http://localhost:3000/avatar/dede ard`
-- With format `http://localhost:3000/avatar/dede ard.png`
-- With options `http://localhost:3000/avatar/dede ard?size=120`
+### URL format:
+
+- `https://cdn.dedeard.my.id/avatar/:nickname.:format?:options`
+
+> Note: _all requests must use_ `GET` _or_ `HEAD` _method, otherwise it will be rejected._
+
+For examples:
+`/avatar/dede ard.jpg?size=320`
+
+![Avatar Example](https://cdn.dedeard.my.id/avatar/dede ard.jpg?size=320)
 
 ### Options:
+
 **format=:string**
 
-Set avatar format. Default: webp.
+Set avatar format.
 
 Value: `webp - jpeg - jpg - png`
 
-Example: `/avatar/dede ard.png`
+Default: `webp`
+
+For example: `/avatar/dede ard.png`
 
 <br>
 
 **size=:pixel**
 
-Set avatar size in pixel. Default 60.
+Set avatar size in pixel.
 
-Value: `> 0`
+Value: `val > 0`
 
-Example: `/avatar/dede ard?size=120`
+Default: `60`
 
+For example: `/avatar/dede ard?size=120`
 
 <br />
 
 **color=:hex**
 
-Set avatar text color. Default #111827.
+Set avatar text color.
 
-Example: `/avatar/dede ard?color=#000000`
+Default: `#111827`
 
+For example: `/avatar/dede ard?color=#000000`
 
 <br />
 
 **bgcolor=:hex**
 
-Set avatar background color. Default #f3f4f6.
+Set avatar background color.
 
-Example: `/avatar/dede ard?color=#ffffff`
+Default: `#f3f4f6`
+
+For example: `/avatar/dede ard?color=#ffffff`
 
 <br />
 
+## OG Image Service
 
-## OG Image
 ### URL format:
-- `http://localhost:3000/og/:text.:format?:options`
-  
-Notes: *all requests must use* `GET` *method.*
 
-Examples:
-- Without options `http://localhost:3000/og/Hello World`
-- With format `http://localhost:3000/og/Hello World.png`
-- With options `http://localhost:3000/og/Hello World?color=#00000`
+- `https://cdn.dedeard.my.id/og/:text.:format?:options`
+
+> Note: _all requests must use_ `GET` _or_ `HEAD` _method, otherwise it will be rejected._
+
+For examples:
+`/og/Hello World.jpg?sign=static.dedeard.my.id/og-image`
+
+![OG Image Example](https://cdn.dedeard.my.id/og/Hello World.jpg?sign=static.dedeard.my.id/og-image)
 
 ### Options:
+
 **format=:string**
 
-Set image format. Default: webp.
+Set image format.
 
 Value: `webp - jpeg - jpg - png`
 
-Example: `/og/Hello World.png`
+Default: `webp`
+
+For example: `/og/Hello World.jpg`
 
 <br>
 
@@ -202,85 +220,97 @@ Example: `/og/Hello World.png`
 
 Set image sign.
 
-Example: `/og/Hello World?sign=example`
+For example: `/og/Hello World?sign=example.com/path`
 
 <br />
 
 **color=:hex**
 
-Set image text color. Default #111827.
+Set image text color.
 
-Example: `/og/Hello World?color=#000000`
+Default `#111827`
 
+For example: `/og/Hello World?color=#000000`
 
 <br />
 
 **bgcolor=:hex**
 
-Set image background color. Default #f3f4f6.
+Set image background color.
 
-Example: `/og/Hello World?color=#ffffff`
+Default `#f3f4f6`
+
+For example: `/og/Hello World?color=#ffffff`
 
 <br />
 
+## Placeholder Service
 
-## Placeholder
 ### URL format:
-- `http://localhost:3000/placeholder.:format?:options`
-  
-Notes: *all requests must use* `GET` *method.*
 
-Examples:
-- Without options `http://localhost:3000/placeholder`
-- With format `http://localhost:3000/placeholder.png`
-- With options `http://localhost:3000/placeholder?color=#00000`
+- `https://cdn.dedeard.my.id/placeholder.:format?:options`
+
+> Note: _all requests must use_ `GET` _or_ `HEAD` _method, otherwise it will be rejected._
+
+For examples:
+`/placeholder.webp?width=640&height=320`
+
+![Placeholder Example](https://cdn.dedeard.my.id/placeholder.webp?width=720&height=320)
 
 ### Options:
+
 **format=:string**
 
-Set image format. Default: webp.
+Set image format.
 
 Value: `webp - jpeg - jpg - png`
 
-Example: `/placeholder.png`
+Default: `webp`
+
+For example: `/placeholder.jpg`
 
 <br>
 
 **width=:pixel**
 
-Set new image width in pixel. Default: 640.
+Set new image width in pixel.
 
-Value: `> 0`
+Value: `val > 0`
 
-Example: `/placeholder?width=600`
+Default: `640`
 
+For example: `/placeholder?width=600`
 
 <br />
 
 **height=:pixel**
 
-Set new image height in pixel. Default: 480.
+Set new image height in pixel.
 
-Value: `> 0`
+Value: `val > 0`
 
-Example: `/placeholder?height=600`
+Default: `480`
 
+For example: `/placeholder?height=600`
 
 <br />
 
 **color=:hex**
 
-Set image text color. Default #111827.
+Set image text color.
 
-Example: `/og/Hello World?color=#000000`
+Default `#111827`
 
+For example: `/placeholder?color=#000000`
 
 <br />
 
 **bgcolor=:hex**
 
-Set image background color. Default #f3f4f6.
+Set image background color.
 
-Example: `/og/Hello World?color=#ffffff`
+Default `#f3f4f6`
+
+For example: `/placeholder?color=#ffffff`
 
 <br />
