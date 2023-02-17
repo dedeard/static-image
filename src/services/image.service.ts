@@ -57,7 +57,7 @@ function parseParams(req: RequestType) {
   const qQuality = Number(options.quality)
   if (!isNaN(qQuality) && qQuality > 0 && qQuality <= 100) quality = qQuality
   const qWidth = Number(options.width)
-  if (!isNaN(qWidth) && qWidth > 0) height = qWidth
+  if (!isNaN(qWidth) && qWidth > 0) width = qWidth
   const qHeight = Number(options.height)
   if (!isNaN(qHeight) && qHeight > 0) height = qHeight
   if (format && !['webp', 'jpeg', 'jpg', 'png'].includes(format))
@@ -104,7 +104,7 @@ async function handler(req: RequestType, res: Response, next: NextFunction) {
     }
 
     buffer = await sharp(buffer)
-      .resize({ width: params.width, height: params.height })
+      .resize({ width: params.width, height: params.height, fit: 'cover' })
       .toFormat(ext, { quality: params.quality })
       .toBuffer()
 
