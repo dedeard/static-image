@@ -16,7 +16,6 @@ type Params = {
   color: string
   bgColor: string
   size: number
-  weight: '300' | '400' | '500' | '700'
 }
 
 /**
@@ -29,19 +28,20 @@ function parseParams(req: RequestType) {
   let text = parsed.name
   let color = formatColor(req.query.color, config.colors.dark)
   let bgColor = formatColor(req.query.bgcolor, config.colors.light)
-  let weight = req.query.weight || '400'
+  let size = 80
 
   if (!['webp', 'jpeg', 'jpg', 'png'].includes(ext)) ext = 'webp'
-  if (!['300', '400', '500', '700'].includes(ext)) weight = '400'
+  const qSize = Number(req.query.size)
+  if (!isNaN(qSize) && qSize > 0) size = qSize
 
-  return { ext, text, color, bgColor, weight } as Params
+  return { ext, text, color, bgColor, size } as Params
 }
 
 /**
  * Generate svg based on params.
  *
  */
-function createSVG({ text, color, bgColor, weight }: Params) {
+function createSVG({ text, color, bgColor }: Params) {
   const initials = createInitials(text)
   let fontsize = 37
   if (initials.length === 2) fontsize = 27
@@ -52,7 +52,7 @@ function createSVG({ text, color, bgColor, weight }: Params) {
   <svg  width="60" height="60" viewBox="0 0 60 60">
     <rect fill="#${bgColor}" x="0" y="0" width="60" height="60"/>
     <text fill="#${color}" x="50%" y="50%" transform="translate(0 ${translateY})" text-anchor="middle"
-    font-family="Ubuntu, sans-serif" font-weight="${weight}" font-size="${fontsize}">${initials}</text>
+    font-family="Ubuntu, sans-serif" font-weight="semiBold" font-size="${fontsize}">${initials}</text>
   </svg>
 `
 }
