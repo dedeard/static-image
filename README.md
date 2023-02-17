@@ -75,9 +75,9 @@
 > Note: _all requests must use_ `GET` _or_ `HEAD` _method, otherwise it will be rejected._
 
 For examples:
-`/image/width=640,height=480/static.dedeard.my.id/kai.jpg`
+`/image/width=400,height=300/static.dedeard.my.id/kai.jpg`
 
-![Martial Peak - Yang kai](https://cdn.dedeard.my.id/image/width=640,height=480/static.dedeard.my.id/kai.jpg)
+<img alt="Martial Peak - Yang kai" width="400px" src="https://cdn.dedeard.my.id/image/width=400,height=300/static.dedeard.my.id/kai.jpg" />
 
 ### Supported Image Types:
 
@@ -141,7 +141,7 @@ For example: `/image/height=600/static.dedeard.my.id/kai.jpg`
 For examples:
 `/avatar/dede ard.jpg?size=320`
 
-![Avatar Example](https://cdn.dedeard.my.id/avatar/dede ard.jpg?size=320)
+<img alt="Avatar Example" width="400px" src="https://cdn.dedeard.my.id/avatar/dede ard.jpg?size=400" />
 
 ### Options:
 
@@ -200,7 +200,7 @@ For example: `/avatar/dede ard?color=#ffffff`
 For examples:
 `/og/Hello World.jpg?sign=static.dedeard.my.id/og-image`
 
-![OG Image Example](https://cdn.dedeard.my.id/og/Hello World.jpg?sign=static.dedeard.my.id/og-image)
+<img alt="OG Image Example" width="400px" src="https://cdn.dedeard.my.id/og/Hello World.jpg?sign=static.dedeard.my.id/og-image" />
 
 ### Options:
 
@@ -253,9 +253,9 @@ For example: `/og/Hello World?color=#ffffff`
 > Note: _all requests must use_ `GET` _or_ `HEAD` _method, otherwise it will be rejected._
 
 For examples:
-`/placeholder.webp?width=640&height=320`
+`/placeholder.webp?width=400&height=300`
 
-![Placeholder Example](https://cdn.dedeard.my.id/placeholder.webp?width=720&height=320)
+<img alt="Placeholder Example" width="400px" src="https://cdn.dedeard.my.id/placeholder.webp?width=400&height=300" />
 
 ### Options:
 
