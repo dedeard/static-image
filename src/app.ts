@@ -52,7 +52,7 @@ class App {
         message: err.message,
         stack: err.stack,
       })
-      res.statusCode = 500
+      res.statusCode = 400
       res.end()
     })
   }
