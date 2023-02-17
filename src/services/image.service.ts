@@ -2,7 +2,6 @@ import path from 'path'
 import { Application, NextFunction, Request, Response } from 'express'
 import sharp from 'sharp'
 import isValidDomain from 'is-valid-domain'
-import fileType from 'file-type'
 import config from '../config'
 import { getFormatFromBuffer, urlToBuffer } from '../libs'
 
@@ -84,10 +83,7 @@ async function handler(req: RequestType, res: Response, next: NextFunction) {
 
     let ext: SupportExt
     let mime: SupportMime
-    let format = (await fileType.fromBuffer(buffer)) || {
-      mime: 'image/webp',
-      ext: 'webp',
-    }
+    let format = await getFormatFromBuffer(buffer)
 
     const supported: SupportMime[] = [
       'image/png',
