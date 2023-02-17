@@ -2,6 +2,7 @@ import path from 'path'
 import { Application, NextFunction, Request, Response } from 'express'
 import sharp from 'sharp'
 import isValidDomain from 'is-valid-domain'
+import fileType from 'file-type'
 import config from '../config'
 import { getFormatFromBuffer, urlToBuffer } from '../libs'
 
@@ -49,7 +50,7 @@ function parseParams(req: RequestType) {
     ? path.join(req.params.params, req.params[0])
     : req.params[0]
   url += '?' + new URLSearchParams(req.query).toString()
-  let quality = 100
+  let quality = 80
   let width: number | undefined
   let height: number | undefined
   let format: string | undefined = options.format
@@ -83,7 +84,11 @@ async function handler(req: RequestType, res: Response, next: NextFunction) {
 
     let ext: SupportExt
     let mime: SupportMime
-    let format = await getFormatFromBuffer(buffer)
+    let format = (await fileType.fromBuffer(buffer)) || {
+      mime: 'image/webp',
+      ext: 'webp',
+    }
+
     const supported: SupportMime[] = [
       'image/png',
       'image/jpeg',
