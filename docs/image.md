@@ -2,6 +2,7 @@
 layout: docs
 title: Image
 description: Optimize and resize image to speed it up.
+image: https://cdn.dedeard.my.id/og/Optimize and resize image to speed it up.jpg?sign=https://static.dedeard.my.id/image
 ---
 
 ### URL format:

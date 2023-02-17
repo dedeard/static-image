@@ -3,7 +3,6 @@ url: static.dedeard.my.id
 title: STATIC
 description: The CDN to speed up your images.
 
-canonical_url: https://static.dedeard.my.id
 website_url: https://dedeard.my.id
 repo_url: https://github.com/dedeard/static-image
 github_url: https://github.com/dedeard
@@ -17,13 +16,14 @@ twitter:
 
 facebook:
   app_id: 752472966269247
+  admins: 100011972079252
 
 author:
-  name: Dede Ardiansya
+  name: Dede ardiansya
   url: https://dedeard.my.id
 
 social:
-  name: Dede Ardiansya
+  name: Dede ardiansya
   links:
     - https://dedeard.my.id
     - https://twitter.com/_dedeard

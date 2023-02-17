@@ -2,6 +2,7 @@
 layout: docs
 title: Avatar
 description: Generate powerful and fast Avatar Images easily with no effort.
+image: https://cdn.dedeard.my.id/og/Generate powerful and fast Avatar Images easily with no effort.jpg?sign=https://static.dedeard.my.id/avatar
 ---
 
 ### URL format:

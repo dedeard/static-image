@@ -2,6 +2,7 @@
 layout: docs
 title: Placeholder
 description: Easily generate powerful and fast Image Placeholders effortlessly.
+image: https://cdn.dedeard.my.id/og/Easily generate powerful and fast Image Placeholders effortlessly.jpg?sign=https://static.dedeard.my.id/placeholder
 ---
 
 ### URL format:
