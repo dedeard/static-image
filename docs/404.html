@@ -1,10 +1,26 @@
 ---
 permalink: /404.html
 layout: default
+title: 404 NOT FOUND
 ---
 
-<div class="container">
-  <h1>404</h1>
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
+<div
+  class="relative flex min-h-[80vh] items-center justify-start bg-gray-900 p-3 py-28"
+>
+  <div class="relative z-10 flex flex-1 items-center justify-center">
+    <div class="text-center">
+      <h1 class="text-8xl font-bold text-primary-600">404</h1>
+      <h4
+        class="mb-3 text-lg font-semibold uppercase tracking-wider text-white"
+      >
+        NOT FOUND
+      </h4>
+      <a
+        href="/"
+        class="inline-block rounded bg-primary-600 py-2 px-4 font-semibold tracking-wider text-white hover:bg-primary-700"
+        >BACK TO HOME PAGE</a
+      >
+    </div>
+  </div>
+  {% include particle.html %}
 </div>
