@@ -1,8 +1,9 @@
 {
   "scripts": {
-    "build:css": "postcss ./tailwind.css -o ./assets/css/main.css",
-    "watch": "nodemon --exec npm run build:css",
-    "dev": "bundle exec jekyll serve"
+    "format": "prettier --write **/*.{html,js} --ignore-path .gitignore",
+    "build:tailwind": "postcss ./tailwind.css -o ./assets/css/main.css",
+    "css": "nodemon --exec npm run build:tailwind",
+    "dev": "bundle exec jekyll serve --livereload"
   },
   "nodemonConfig": {
     "ext": "html,md,css,js",
@@ -13,10 +14,13 @@
     ]
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.13",
     "nodemon": "^2.0.20",
     "postcss": "^8.4.21",
     "postcss-cli": "^10.1.0",
+    "prettier": "^2.8.4",
+    "prettier-plugin-tailwindcss": "^0.2.3",
     "tailwindcss": "^3.2.6"
   }
 }

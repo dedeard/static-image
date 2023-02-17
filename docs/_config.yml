@@ -1,16 +1,29 @@
+name: STATIC
 url: static.dedeard.my.id
+title: STATIC
+description: The CDN to speed up your images.
+
+canonical_url: https://static.dedeard.my.id
+website_url: https://dedeard.my.id
+repo_url: https://github.com/dedeard/static-image
+github_url: https://github.com/dedeard
+instagram_url: https://www.instagram.com/dedeard.js
+linkedin_url: https://www.linkedin.com/in/dedeard
+buymeacoffee_url: https://www.buymeacoffee.com/dedeard
 
 twitter:
   username: _dedeard
   card: summary
 
 facebook:
-  app_id: 1234
-  publisher: 1234
-  admins: 1234
+  app_id: 752472966269247
+
+author:
+  name: Dede Ardiansya
+  url: https://dedeard.my.id
 
 social:
-  name: Dede ardiansya
+  name: Dede Ardiansya
   links:
     - https://dedeard.my.id
     - https://twitter.com/_dedeard
@@ -19,12 +32,8 @@ social:
     - https://github.com/dedeard
     - https://www.instagram.com/dedeard.js
 
-# Build settings
 plugins:
   - jekyll-seo-tag
-
-postcss:
-  cache: false
 
 exclude:
   - package.json
