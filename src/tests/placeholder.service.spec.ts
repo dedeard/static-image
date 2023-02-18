@@ -1,7 +1,7 @@
 import chai from 'chai'
 import chaiHttp from 'chai-http'
 import Application from '../app'
-import placeholderService from './placeholder.service'
+import placeholderService from '../services/placeholder.service'
 import { getFormatFromBuffer } from '../libs'
 
 chai.use(chaiHttp)
