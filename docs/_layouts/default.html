@@ -3,7 +3,6 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    {% seo %}
     <meta
       name="keywords"
       content="static, dedeard, mit license, free image cdn, image optimization, image processing, static files, optimization, cdn, web tools, web performance, web optimization, github cdn"
@@ -16,13 +15,15 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/assets/css/main.css?time={{site.time}}" />
-    <script src="//unpkg.com/alpinejs" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    {% seo %}
   </head>
 
   <body class="bg-white text-gray-900">
     {% include header.html %}
     <main>{{ content }}</main>
-    {% include footer.html %} {% include gtag.html %}
+    {% include footer.html %}
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    {% include gtag.html %}
   </body>
 </html>
