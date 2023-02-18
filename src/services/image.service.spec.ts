@@ -6,7 +6,7 @@ import { getFormatFromBuffer } from '../libs'
 
 chai.use(chaiHttp)
 
-const imgUrl = 'via.placeholder.com/100x100'
+const imgUrl = 'cdn.dedeard.my.id/placeholder.jpg'
 
 const { app } = new Application(imageService)
 const { expect, request } = chai
