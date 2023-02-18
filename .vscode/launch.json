@@ -2,13 +2,21 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "DEBUG",
+      "name": "Local",
       "type": "node",
       "request": "attach",
       "restart": true,
       "localRoot": "${workspaceFolder}",
+      "port": 9229
+    },
+    {
+      "name": "Docker",
+      "type": "node",
+      "request": "attach",
+      "restart": true,
       "port": 9229,
-      "remoteRoot": "/"
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/app"
     }
   ]
 }
