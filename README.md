@@ -75,20 +75,23 @@
 > Note: _all requests must use_ `GET` _or_ `HEAD` _method, otherwise it will be rejected._
 
 For examples:
-`/image/width=400,height=300/static.dedeard.my.id/kai.jpg`
+`https://cdn.dedeard.my.id/image/w=400,h=300/static.dedeard.my.id/kai.jpg`
 
-<img alt="Martial Peak - Yang kai" width="400px" src="https://cdn.dedeard.my.id/image/width=400,height=300/static.dedeard.my.id/kai.jpg" />
+<img alt="Martial Peak - Yang kai" width="400px" src="https://cdn.dedeard.my.id/image/w=400,h=300/static.dedeard.my.id/kai.jpg" />
 
-### Supported Image Types:
+### Supported Input Image Types:
 
-- GIF
 - JPEG
 - PNG
 - WebP
+- AVIF
+- GIF
+- SVG
+- TIFF
 
 ### Options:
 
-**format=:string**
+**format=:string** OR **f=:string**
 
 Convert image format.
 
@@ -98,7 +101,7 @@ For example: `/image/format=webp/static.dedeard.my.id/kai.jpg`
 
 <br />
 
-**quality=:percentage**
+**quality=:percentage** OR **q=:percentage**
 
 Set new image quality in percentage.
 
@@ -110,7 +113,7 @@ For example: `/image/quality=80/static.dedeard.my.id/kai.jpg`
 
 <br />
 
-**width=:pixel**
+**width=:pixel** OR **w=:pixel**
 
 Set new image width in pixel.
 
@@ -120,7 +123,7 @@ For example: `/image/width=600/static.dedeard.my.id/kai.jpg`
 
 <br />
 
-**height=:pixel**
+**height=:pixel** OR **h=:pixel**
 
 Set new image height in pixel.
 
@@ -141,15 +144,15 @@ For example: `/image/height=600/static.dedeard.my.id/kai.jpg`
 For examples:
 `/avatar/dede ard.jpg?size=320`
 
-<img alt="Avatar Example" width="400px" src="https://cdn.dedeard.my.id/avatar/dede ard.jpg?size=400" />
+<img alt="Avatar Example" width="400px" src="https://cdn.dedeard.my.id/avatar/dede ard.jpg?size=320" />
 
 ### Options:
 
-**format=:string**
+**format=:string** OR **f=:string**
 
 Set avatar format.
 
-Value: `webp - jpeg - jpg - png`
+Value: `webp - jpeg - jpg - png - svg`
 
 Default: `webp`
 
@@ -157,7 +160,7 @@ For example: `/avatar/dede ard.png`
 
 <br>
 
-**size=:pixel**
+**size=:pixel** OR **s=:pixel**
 
 Set avatar size in pixel.
 
@@ -169,23 +172,35 @@ For example: `/avatar/dede ard?size=120`
 
 <br />
 
-**color=:hex**
+**maxlength=:pixel** OR **m=:pixel**
 
-Set avatar text color.
+Set avatar maximum character length.
 
-Default: `#111827`
+Value: `1 - 3`
 
-For example: `/avatar/dede ard?color=#000000`
+Default: `2`
+
+For example: `/avatar/dede ard?maxlength=3`
 
 <br />
 
-**bgcolor=:hex**
+**color=:hex** OR **c=:hex**
+
+Set avatar text color.
+
+Default: `111827`
+
+For example: `/avatar/dede ard?color=000000`
+
+<br />
+
+**bgcolor=:hex** OR **b=:hex**
 
 Set avatar background color.
 
-Default: `#f3f4f6`
+Default: `f3f4f6`
 
-For example: `/avatar/dede ard?color=#ffffff`
+For example: `/avatar/dede ard?color=ffffff`
 
 <br />
 
@@ -204,11 +219,11 @@ For examples:
 
 ### Options:
 
-**format=:string**
+**format=:string** OR **f=:string**
 
 Set image format.
 
-Value: `webp - jpeg - jpg - png`
+Value: `webp - jpeg - jpg - png - svg`
 
 Default: `webp`
 
@@ -216,7 +231,7 @@ For example: `/og/Hello World.jpg`
 
 <br>
 
-**sign=:string**
+**sign=:string** OR **s=:string**
 
 Set image sign.
 
@@ -224,23 +239,23 @@ For example: `/og/Hello World?sign=example.com/path`
 
 <br />
 
-**color=:hex**
+**color=:hex** OR **c=:hex**
 
 Set image text color.
 
-Default `#111827`
+Default `111827`
 
-For example: `/og/Hello World?color=#000000`
+For example: `/og/Hello World?color=000000`
 
 <br />
 
-**bgcolor=:hex**
+**bgcolor=:hex** OR **b=:hex**
 
 Set image background color.
 
-Default `#f3f4f6`
+Default `f3f4f6`
 
-For example: `/og/Hello World?color=#ffffff`
+For example: `/og/Hello World?color=ffffff`
 
 <br />
 
@@ -259,19 +274,19 @@ For examples:
 
 ### Options:
 
-**format=:string**
+**format=:string** OR **f=:string**
 
 Set image format.
 
-Value: `webp - jpeg - jpg - png`
+Value: `webp - jpeg - jpg - png - svg`
 
-Default: `webp`
+Default: `svg`
 
 For example: `/placeholder.jpg`
 
 <br>
 
-**width=:pixel**
+**width=:pixel** OR **w=:pixel**
 
 Set new image width in pixel.
 
@@ -283,7 +298,7 @@ For example: `/placeholder?width=600`
 
 <br />
 
-**height=:pixel**
+**height=:pixel** OR **h=:pixel**
 
 Set new image height in pixel.
 
@@ -295,22 +310,22 @@ For example: `/placeholder?height=600`
 
 <br />
 
-**color=:hex**
+**color=:hex** OR **c=:hex**
 
 Set image text color.
 
-Default `#111827`
+Default `111827`
 
-For example: `/placeholder?color=#000000`
+For example: `/placeholder?color=000000`
 
 <br />
 
-**bgcolor=:hex**
+**bgcolor=:hex** OR **b=:hex**
 
 Set image background color.
 
-Default `#f3f4f6`
+Default `f3f4f6`
 
-For example: `/placeholder?color=#ffffff`
+For example: `/placeholder?color=ffffff`
 
 <br />
