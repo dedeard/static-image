@@ -1,23 +1,23 @@
 import chai from 'chai'
 import chaiHttp from 'chai-http'
 import Application from '../app'
-import ogService from './og.service'
-import { getFormatFromBuffer } from '../libs'
+import avatarService from '../services/avatar.service'
+import { getFormatFromBuffer } from '../shared/libs'
 
 chai.use(chaiHttp)
 
-const { app } = new Application(ogService)
+const { app } = new Application(avatarService)
 const { expect, request } = chai
 
-describe('Testing OG Service', () => {
-  describe('GET /og/Hello World', () => {
-    it('Should be success generate og image.', async () => {
-      const res = await request(app).get('/og/Hello World')
+describe('Testing Avatar Service', () => {
+  describe('GET /avatar/nickname', () => {
+    it('Should be success generate avatar.', async () => {
+      const res = await request(app).get('/avatar/nickname')
       expect(res.status).to.equal(200)
     })
 
     it('Should be success generating webp format.', async () => {
-      const res = await request(app).get('/og/Hello World')
+      const res = await request(app).get('/avatar/nickname')
       expect(res.status).to.equal(200)
       const format = await getFormatFromBuffer(res.body)
       expect(format.ext).to.equal('webp')
@@ -25,14 +25,14 @@ describe('Testing OG Service', () => {
     })
   })
 
-  describe('GET /og/Hello World.wrong', () => {
-    it('Should be success generate og image.', async () => {
-      const res = await request(app).get('/og/Hello World.wrong')
+  describe('GET /avatar/nickname.wrong', () => {
+    it('Should be success generate avatar.', async () => {
+      const res = await request(app).get('/avatar/nickname.wrong')
       expect(res.status).to.equal(200)
     })
 
     it('Should be success generating webp format.', async () => {
-      const res = await request(app).get('/og/Hello World.wrong')
+      const res = await request(app).get('/avatar/nickname.wrong')
       expect(res.status).to.equal(200)
       const format = await getFormatFromBuffer(res.body)
       expect(format.ext).to.equal('webp')
@@ -40,14 +40,14 @@ describe('Testing OG Service', () => {
     })
   })
 
-  describe('GET /og/Hello World.jpg', () => {
-    it('Should be success generate og image.', async () => {
-      const res = await request(app).get('/og/Hello World.jpg')
+  describe('GET /avatar/john doe.jpg', () => {
+    it('Should be success generate avatar.', async () => {
+      const res = await request(app).get('/avatar/john doe.jpg')
       expect(res.status).to.equal(200)
     })
 
     it('Should be success generating jpeg format.', async () => {
-      const res = await request(app).get('/og/Hello World.jpg')
+      const res = await request(app).get('/avatar/john doe.jpg')
       expect(res.status).to.equal(200)
       const format = await getFormatFromBuffer(res.body)
       expect(format.ext).to.be.oneOf(['jpg', 'jpeg'])
@@ -55,14 +55,14 @@ describe('Testing OG Service', () => {
     })
   })
 
-  describe('GET /og/Hello World.jpeg', () => {
-    it('Should be success generate og image.', async () => {
-      const res = await request(app).get('/og/Hello World.jpeg')
+  describe('GET /avatar/jane doe.jpeg', () => {
+    it('Should be success generate avatar.', async () => {
+      const res = await request(app).get('/avatar/jane doe.jpeg')
       expect(res.status).to.equal(200)
     })
 
     it('Should be success generating jpeg format.', async () => {
-      const res = await request(app).get('/og/Hello World.jpeg')
+      const res = await request(app).get('/avatar/jane doe.jpeg')
       expect(res.status).to.equal(200)
       const format = await getFormatFromBuffer(res.body)
       expect(format.ext).to.be.oneOf(['jpg', 'jpeg'])
@@ -70,14 +70,14 @@ describe('Testing OG Service', () => {
     })
   })
 
-  describe('GET /og/Hello World.png', () => {
-    it('Should be success generate og image.', async () => {
-      const res = await request(app).get('/og/Hello World.png')
+  describe('GET /avatar/jane doe.png', () => {
+    it('Should be success generate avatar.', async () => {
+      const res = await request(app).get('/avatar/jane doe.png')
       expect(res.status).to.equal(200)
     })
 
     it('Should be success generating png format.', async () => {
-      const res = await request(app).get('/og/Hello World.png')
+      const res = await request(app).get('/avatar/jane doe.png')
       expect(res.status).to.equal(200)
       const format = await getFormatFromBuffer(res.body)
       expect(format.ext).to.equal('png')

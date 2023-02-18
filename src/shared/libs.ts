@@ -1,8 +1,4 @@
-import http from 'http'
 import fileType from 'file-type'
-import { Stream } from 'stream'
-import got from 'got'
-import { Sharp } from 'sharp'
 
 export function normalizeHex(color: string) {
   if (color.substring(0, 1) === '#') color = color.substring(1)
@@ -53,7 +49,7 @@ export function explodeText(text: string, max: number): string {
   }
 }
 
-export function createInitials(nickname: string) {
+export function createInitials(nickname: string, maxLength: number) {
   let parts = nickname.split(/[ -]/)
   let initials = ''
   for (let i = 0; i < parts.length; i++) {
@@ -62,34 +58,8 @@ export function createInitials(nickname: string) {
   if (initials.length > 3 && initials.search(/[A-Z]/) !== -1) {
     initials = initials.replace(/[a-z]+/g, '')
   }
-  initials = initials.substring(0, 3).toUpperCase()
+  initials = initials.substring(0, maxLength).toUpperCase()
   return initials
-}
-
-export async function urlToBuffer(
-  url: URL,
-  { timeout, maxSize }: { timeout: number; maxSize: number },
-) {
-  return new Promise<Buffer>(async (resolve, reject) => {
-    let size = 0
-    const data: Uint8Array[] = []
-    const req = got.stream(url, { timeout })
-    req.on('data', (chunk) => {
-      size += chunk.length
-      data.push(chunk)
-      if (size > maxSize) {
-        req.destroy(new Error('Content Too Large'))
-      }
-    })
-    req.on('end', () => resolve(Buffer.concat(data)))
-    req.on('error', (err) => {
-      if (err.name === 'TimeoutError') {
-        reject(new Error('Request timeout'))
-      } else {
-        reject(err)
-      }
-    })
-  })
 }
 
 export async function getFormatFromBuffer(buffer: Buffer) {

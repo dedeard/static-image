@@ -11,26 +11,26 @@ image: https://cdn.dedeard.my.id/og/Easily generate powerful and fast Image Plac
 
 > Note: _all requests must use_ `GET` _or_ `HEAD` _method, otherwise it will be rejected._
 
-For examples:
-`/placeholder.webp?width=640&height=320`
+For example:
+`https://cdn.dedeard.my.id/placeholder.webp?w=720&h=320`
 
-![Placeholder Example](https://cdn.dedeard.my.id/placeholder.webp?width=720&height=320)
+![Placeholder Example](https://cdn.dedeard.my.id/placeholder.webp?w=720&h=320)
 
 ### Options:
 
-**format=:string**
+**format=:string** OR **f=:string**
 
 Set image format.
 
-Value: `webp - jpeg - jpg - png`
+Value: `webp - jpeg - jpg - png - svg`
 
-Default: `webp`
+Default: `svg`
 
 For example: `/placeholder.jpg`
 
 <br>
 
-**width=:pixel**
+**width=:pixel** OR **w=:pixel**
 
 Set new image width in pixel.
 
@@ -42,7 +42,7 @@ For example: `/placeholder?width=600`
 
 <br />
 
-**height=:pixel**
+**height=:pixel** OR **h=:pixel**
 
 Set new image height in pixel.
 
@@ -54,20 +54,20 @@ For example: `/placeholder?height=600`
 
 <br />
 
-**color=:hex**
+**color=:hex** OR **c=:hex**
 
 Set image text color.
 
-Default `#111827`
+Default `111827`
 
-For example: `/placeholder?color=#000000`
+For example: `/placeholder?color=000000`
 
 <br />
 
-**bgcolor=:hex**
+**bgcolor=:hex** OR **b=:hex**
 
 Set image background color.
 
-Default `#f3f4f6`
+Default `f3f4f6`
 
-For example: `/placeholder?color=#ffffff`
+For example: `/placeholder?color=ffffff`

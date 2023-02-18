@@ -1,12 +1,12 @@
 import chai from 'chai'
 import chaiHttp from 'chai-http'
 import Application from '../app'
-import imageService from './image.service'
-import { getFormatFromBuffer } from '../libs'
+import imageService from '../services/image.service'
+import { getFormatFromBuffer } from '../shared/libs'
 
 chai.use(chaiHttp)
 
-const imgUrl = 'via.placeholder.com/100x100'
+const imgUrl = 'cdn.dedeard.my.id/placeholder.jpg'
 
 const { app } = new Application(imageService)
 const { expect, request } = chai
