@@ -32,6 +32,10 @@ class App {
       ogService(this.app)
     }
 
+    this.app.get('/', (req, res) => {
+      res.redirect(301, 'https://static.dedeard.my.id')
+    })
+
     this.app.use(express.static(path.join(__dirname, '../public')))
 
     this.catchErrors()
