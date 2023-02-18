@@ -2,7 +2,7 @@ import chai from 'chai'
 import chaiHttp from 'chai-http'
 import Application from '../app'
 import imageService from '../services/image.service'
-import { getFormatFromBuffer } from '../libs'
+import { getFormatFromBuffer } from '../shared/libs'
 
 chai.use(chaiHttp)
 
