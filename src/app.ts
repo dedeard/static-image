@@ -45,15 +45,16 @@ class App {
     })
 
     // Catch runtime error
-    this.app.use((err: Error, req: Request, res: Response, next: any) => {
+    this.app.use((err: any, req: Request, res: Response, next: any) => {
       console.error({
         url: req.originalUrl,
         name: err.name,
+        statusCode: err.statusCode,
         message: err.message,
         stack: err.stack,
       })
-      res.statusCode = 400
-      res.end()
+      res.statusCode = err.statusCode || 500
+      res.send(err.message)
     })
   }
 

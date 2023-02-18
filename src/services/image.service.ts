@@ -1,9 +1,11 @@
 import path from 'path'
 import { Application, NextFunction, Request, Response } from 'express'
+import got from 'got'
 import sharp from 'sharp'
 import isValidDomain from 'is-valid-domain'
 import config from '../config'
-import { getFormatFromBuffer, urlToBuffer } from '../libs'
+import ApiError from '../shared/ApiError'
+import fileType from 'file-type'
 
 /**
  * Types.
@@ -11,13 +13,9 @@ import { getFormatFromBuffer, urlToBuffer } from '../libs'
  */
 type RequestType = Request<{ params: string; '0': string }, {}, {}, { [key: string]: string }>
 
-type SupportMime = 'image/png' | 'image/jpeg' | 'image/jpg' | 'image/webp'
-
-type SupportExt = 'webp' | 'jpeg' | 'jpg' | 'png'
-
 type Params = {
   url: string
-  format?: SupportExt
+  format?: string
   height?: number
   width?: number
   quality: number
@@ -45,13 +43,13 @@ function parseParams(req: RequestType) {
   let quality = 80
   let width: number | undefined
   let height: number | undefined
-  let format: string | undefined = options.format
+  let format: string | undefined = options.format || options.f
 
-  const qQuality = Number(options.quality)
+  const qQuality = Number(options.quality || options.q)
   if (!isNaN(qQuality) && qQuality > 0 && qQuality <= 100) quality = qQuality
-  const qWidth = Number(options.width)
+  const qWidth = Number(options.width || options.w)
   if (!isNaN(qWidth) && qWidth > 0) width = qWidth
-  const qHeight = Number(options.height)
+  const qHeight = Number(options.height || options.h)
   if (!isNaN(qHeight) && qHeight > 0) height = qHeight
   if (format && !['webp', 'jpeg', 'jpg', 'png'].includes(format)) format = undefined
 
@@ -59,49 +57,79 @@ function parseParams(req: RequestType) {
 }
 
 /**
+ * Dowload input file url.
+ *
+ */
+async function download(url: URL, { timeout, maxSize }: { timeout: number; maxSize: number }) {
+  return new Promise<Buffer>(async (resolve, reject) => {
+    let size = 0
+    const data: Uint8Array[] = []
+    const req = got.stream(url, { timeout })
+    req.on('data', (chunk) => {
+      size += chunk.length
+      data.push(chunk)
+      if (size > maxSize) {
+        req.destroy(new ApiError(400, 'Content Too Large'))
+      }
+    })
+    req.on('end', () => resolve(Buffer.concat(data)))
+    req.on('error', (e) => {
+      if (e.name === 'TimeoutError') {
+        reject(new ApiError(400, 'Request timeout', e.message))
+      } else {
+        reject(e)
+      }
+    })
+  })
+}
+
+/**
  * Handle http requests.
  *
  */
 async function handler(req: RequestType, res: Response, next: NextFunction) {
+  const params = parseParams(req)
+  let url: URL
+  let buffer: Buffer
+  let format: fileType.FileTypeResult | undefined
   try {
-    const params = parseParams(req)
+    url = new URL(`http://${params.url}`)
+  } catch (e: any) {
+    return next(new ApiError(400, 'The given url is invalid.', e.stack))
+  }
 
-    const url = new URL(`http://${params.url}`)
-
-    let buffer = await urlToBuffer(url, {
+  try {
+    buffer = await download(url, {
       timeout: config.image.downloadTimeout,
       maxSize: config.image.maxInputSize,
     })
-
-    let ext: SupportExt
-    let mime: SupportMime
-    let format = await getFormatFromBuffer(buffer)
-
-    const supported: SupportMime[] = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp']
-    // @ts-expect-error
-    if (!supported.includes(format.mime)) throw new Error('The given file is not supported.')
-
-    if (params.format) {
-      ext = params.format
-      mime = `image/${params.format}`
-    } else {
-      ext = format.ext as SupportExt
-      mime = format.mime as SupportMime
-    }
-
-    buffer = await sharp(buffer)
-      .resize({ width: params.width, height: params.height, fit: 'cover' })
-      .toFormat(ext, { quality: params.quality })
-      .toBuffer()
-
-    res.header({
-      'cache-control': `public, max-age=${config.cacheAge}, must-revalidate`,
-      'content-type': mime == 'image/jpg' ? 'image/jpeg' : mime,
-      'content-length': buffer.length,
-    })
-    res.end(buffer, 'binary')
   } catch (e: any) {
-    next(e)
+    if (e.response) return next(new ApiError(e.response.statusCode, e.message, e.stack))
+    return next(new ApiError(400, e.message, e.stack))
+  }
+
+  try {
+    format = await fileType.fromBuffer(buffer)
+  } catch (e: any) {
+    return next(e)
+  }
+
+  try {
+    await sharp(buffer)
+      .resize({ width: params.width, height: params.height })
+      // @ts-expect-error
+      .toFormat(params.format || format?.ext || 'webp', { quality: params.quality })
+      .toBuffer((err, buffer, info) => {
+        if (err) return next(err)
+        res.header({
+          'cache-control': `public, max-age=${config.cacheAge}, must-revalidate`,
+          'content-type': 'image/' + info.format,
+          'content-length': info.size,
+        })
+        res.end(buffer, 'binary')
+      })
+  } catch (e: any) {
+    next(new ApiError(400, e.message, e.stack))
   }
 }
 
