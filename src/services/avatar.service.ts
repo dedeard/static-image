@@ -32,7 +32,10 @@ function parseParams(req: RequestType) {
   let size = 80
   let maxLength: number = 2
 
-  if (!['webp', 'jpeg', 'jpg', 'png', 'svg'].includes(ext)) ext = 'webp'
+  if (!['webp', 'jpeg', 'jpg', 'png', 'svg'].includes(ext)) {
+    ext = 'webp'
+    text += parsed.ext
+  }
   const qSize = Number(req.query.size || req.query.s)
   if (!isNaN(qSize) && qSize > 0) size = qSize
   const qMaxLength = Number(req.query.maxlength || req.query.m)
