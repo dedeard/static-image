@@ -16,6 +16,7 @@ type Params = {
   color: string
   bgColor: string
   size: number
+  maxLength: number
 }
 
 /**
@@ -26,23 +27,26 @@ function parseParams(req: RequestType) {
   let parsed = path.parse(req.params.name)
   let ext = (parsed.ext || '.webp').substring(1)
   let text = parsed.name
-  let color = formatColor(req.query.color, config.colors.dark)
-  let bgColor = formatColor(req.query.bgcolor, config.colors.light)
+  let color = formatColor(req.query.color || req.query.c, config.colors.dark)
+  let bgColor = formatColor(req.query.bgcolor || req.query.b, config.colors.light)
   let size = 80
+  let maxLength: number = 2
 
   if (!['webp', 'jpeg', 'jpg', 'png'].includes(ext)) ext = 'webp'
-  const qSize = Number(req.query.size)
+  const qSize = Number(req.query.size || req.query.s)
   if (!isNaN(qSize) && qSize > 0) size = qSize
+  const qMaxLength = Number(req.query.maxLength || req.query.m)
+  if (!isNaN(qMaxLength) && qMaxLength > 0 && qMaxLength <= 3) maxLength = qMaxLength
 
-  return { ext, text, color, bgColor, size } as Params
+  return { ext, text, color, bgColor, size, maxLength } as Params
 }
 
 /**
  * Generate svg based on params.
  *
  */
-function createSVG({ text, color, bgColor }: Params) {
-  const initials = createInitials(text)
+function createSVG({ text, color, bgColor, maxLength }: Params) {
+  const initials = createInitials(text, maxLength)
   let fontsize = 37
   if (initials.length === 2) fontsize = 27
   if (initials.length === 3) fontsize = 17
