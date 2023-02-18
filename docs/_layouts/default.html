@@ -15,15 +15,13 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/assets/css/main.css?time={{site.time}}" />
-    {% seo %}
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    {% include gtag.html %} {% seo %}
   </head>
-
   <body class="bg-white text-gray-900">
     {% include header.html %}
     <main>{{ content }}</main>
     {% include footer.html %}
-    <script src="https://unpkg.com/alpinejs" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    {% include gtag.html %}
   </body>
 </html>
