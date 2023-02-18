@@ -1,8 +1,8 @@
 import path from 'path'
 import { Application, NextFunction, Request, Response } from 'express'
 import sharp from 'sharp'
-import config from '../config'
-import { createInitials, formatColor } from '../libs'
+import config from '../shared/config'
+import { createInitials, formatColor } from '../shared/libs'
 
 /**
  * Types.

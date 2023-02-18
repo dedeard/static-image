@@ -3,7 +3,7 @@ import { Application, NextFunction, Request, Response } from 'express'
 import got from 'got'
 import sharp from 'sharp'
 import isValidDomain from 'is-valid-domain'
-import config from '../config'
+import config from '../shared/config'
 import ApiError from '../shared/ApiError'
 import fileType from 'file-type'
 
