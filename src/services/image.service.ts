@@ -9,12 +9,7 @@ import { getFormatFromBuffer, urlToBuffer } from '../libs'
  * Types.
  *
  */
-type RequestType = Request<
-  { params: string; '0': string },
-  {},
-  {},
-  { [key: string]: string }
->
+type RequestType = Request<{ params: string; '0': string }, {}, {}, { [key: string]: string }>
 
 type SupportMime = 'image/png' | 'image/jpeg' | 'image/jpg' | 'image/webp'
 
@@ -45,9 +40,7 @@ function parseParams(req: RequestType) {
     }
   }
 
-  let url: string = paramsIsDomain
-    ? path.join(req.params.params, req.params[0])
-    : req.params[0]
+  let url: string = paramsIsDomain ? path.join(req.params.params, req.params[0]) : req.params[0]
   url += '?' + new URLSearchParams(req.query).toString()
   let quality = 80
   let width: number | undefined
@@ -60,8 +53,7 @@ function parseParams(req: RequestType) {
   if (!isNaN(qWidth) && qWidth > 0) width = qWidth
   const qHeight = Number(options.height)
   if (!isNaN(qHeight) && qHeight > 0) height = qHeight
-  if (format && !['webp', 'jpeg', 'jpg', 'png'].includes(format))
-    format = undefined
+  if (format && !['webp', 'jpeg', 'jpg', 'png'].includes(format)) format = undefined
 
   return { url, quality, width, height, format } as Params
 }
@@ -85,15 +77,9 @@ async function handler(req: RequestType, res: Response, next: NextFunction) {
     let mime: SupportMime
     let format = await getFormatFromBuffer(buffer)
 
-    const supported: SupportMime[] = [
-      'image/png',
-      'image/jpeg',
-      'image/jpg',
-      'image/webp',
-    ]
+    const supported: SupportMime[] = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp']
     // @ts-expect-error
-    if (!supported.includes(format.mime))
-      throw new Error('The given file is not supported.')
+    if (!supported.includes(format.mime)) throw new Error('The given file is not supported.')
 
     if (params.format) {
       ext = params.format
