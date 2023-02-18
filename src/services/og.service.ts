@@ -25,12 +25,15 @@ type Params = {
 function parseParams(req: RequestType) {
   let parsed = path.parse(req.params['0'])
   let ext = (parsed.ext || '.webp').substring(1)
-  let text = req.params['0']
+  let text = parsed.name && parsed.dir ? parsed.dir + '/' + parsed.name : parsed.name
   let color = formatColor(req.query.color || req.query.c, config.colors.dark)
   let bgColor = formatColor(req.query.bgcolor || req.query.b, config.colors.light)
   let sign = req.query.sign || req.query.s || ''
 
-  if (!['webp', 'jpeg', 'jpg', 'png', 'svg'].includes(ext)) ext = 'webp'
+  if (!['webp', 'jpeg', 'jpg', 'png', 'svg'].includes(ext)) {
+    ext = 'webp'
+    text += parsed.ext
+  }
 
   return { ext, text, color, bgColor, sign } as Params
 }
