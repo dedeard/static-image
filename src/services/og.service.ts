@@ -73,7 +73,10 @@ async function handler(req: RequestType, res: Response, next: NextFunction) {
 
     let buffer = Buffer.from(createSVG(params))
     if (params.ext !== 'svg') {
-      buffer = await sharp(buffer).resize({ width: 1200, height: 630 }).toFormat(params.ext).toBuffer()
+      buffer = await sharp(buffer)
+        .resize({ width: 1200, height: 630 })
+        .toFormat(params.ext)
+        .toBuffer()
     }
 
     let mime = `image/${params.ext}`
