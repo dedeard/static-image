@@ -74,7 +74,7 @@
 
 > Note: _all requests must use_ `GET` _or_ `HEAD` _method, otherwise it will be rejected._
 
-For examples:
+For example:
 `https://cdn.dedeard.my.id/image/w=400,h=300/static.dedeard.my.id/kai.jpg`
 
 <img alt="Martial Peak - Yang kai" width="400px" src="https://cdn.dedeard.my.id/image/w=400,h=300/static.dedeard.my.id/kai.jpg" />
@@ -141,8 +141,8 @@ For example: `/image/height=600/static.dedeard.my.id/kai.jpg`
 
 > Note: _all requests must use_ `GET` _or_ `HEAD` _method, otherwise it will be rejected._
 
-For examples:
-`/avatar/dede ard.jpg?size=320`
+For example:
+`https://cdn.dedeard.my.id/avatar/dede ard.jpg?size=320`
 
 <img alt="Avatar Example" width="400px" src="https://cdn.dedeard.my.id/avatar/dede ard.jpg?size=320" />
 
@@ -212,8 +212,8 @@ For example: `/avatar/dede ard?color=ffffff`
 
 > Note: _all requests must use_ `GET` _or_ `HEAD` _method, otherwise it will be rejected._
 
-For examples:
-`/og/Hello World.jpg?sign=static.dedeard.my.id/og-image`
+For example:
+`https://cdn.dedeard.my.id/og/Hello World.jpg?sign=static.dedeard.my.id/og-image`
 
 <img alt="OG Image Example" width="400px" src="https://cdn.dedeard.my.id/og/Hello World.jpg?sign=static.dedeard.my.id/og-image" />
 
@@ -267,8 +267,8 @@ For example: `/og/Hello World?color=ffffff`
 
 > Note: _all requests must use_ `GET` _or_ `HEAD` _method, otherwise it will be rejected._
 
-For examples:
-`/placeholder.webp?width=400&height=300`
+For example:
+`https://cdn.dedeard.my.id/placeholder.webp?width=400&height=300`
 
 <img alt="Placeholder Example" width="400px" src="https://cdn.dedeard.my.id/placeholder.webp?width=400&height=300" />
 
