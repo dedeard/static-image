@@ -1,14 +1,12 @@
 {
   "name": "static-image",
   "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/dedeardiansya/static-image.git",
-  "author": "dede ariansya <dedeariansya1@gmail.com>",
+  "description": "Easy and powerful way to speed up loading of images on your website. Developed using node with typescript.",
+  "main": "dist/index.js",
+  "repository": "https://github.com/dedeard/static-image.git",
+  "author": "dede ariansya <me@dedeard.my.id>",
   "license": "MIT",
   "private": false,
-  "engines": {
-    "node": "^16.x"
-  },
   "scripts": {
     "build": "rimraf dist && tsc",
     "start": "node dist/index.js",
