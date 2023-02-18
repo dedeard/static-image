@@ -35,7 +35,7 @@ function parseParams(req: RequestType) {
   if (!['webp', 'jpeg', 'jpg', 'png', 'svg'].includes(ext)) ext = 'webp'
   const qSize = Number(req.query.size || req.query.s)
   if (!isNaN(qSize) && qSize > 0) size = qSize
-  const qMaxLength = Number(req.query.maxLength || req.query.m)
+  const qMaxLength = Number(req.query.maxlength || req.query.m)
   if (!isNaN(qMaxLength) && qMaxLength > 0 && qMaxLength <= 3) maxLength = qMaxLength
 
   return { ext, text, color, bgColor, size, maxLength } as Params
