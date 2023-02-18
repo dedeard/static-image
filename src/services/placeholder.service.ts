@@ -11,12 +11,18 @@ import { formatColor } from '../shared/libs'
 type RequestType = Request<{ ext?: string }, {}, {}, { [key: string]: string }>
 
 type Params = {
-  ext: 'webp' | 'jpeg' | 'jpg' | 'png'
+  ext: 'webp' | 'jpeg' | 'jpg' | 'png' | 'svg'
   color: string
   bgColor: string
   height: number
   width: number
 }
+
+/**
+ * Config
+ *
+ */
+const supporedExt = ['webp', 'jpeg', 'jpg', 'png', 'svg']
 
 /**
  * Validate and convert request parameters.
@@ -29,7 +35,7 @@ function parseParams(req: RequestType) {
   let width = 640
   let height = 480
 
-  if (!['webp', 'jpeg', 'jpg', 'png'].includes(ext)) ext = 'webp'
+  if (!supporedExt.includes(ext)) ext = 'svg'
   const qHeight = Number(req.query.height)
   if (!isNaN(qHeight) && qHeight > 0) height = qHeight
   const qWidth = Number(req.query.width)
@@ -42,9 +48,14 @@ function parseParams(req: RequestType) {
  * Generate svg based on params.
  *
  */
-function createSVG({ color, bgColor }: Params) {
+function createSVG({ color, bgColor, width, height, ext }: Params) {
+  if (ext !== 'svg') {
+    width === 1000
+    height === 1000
+  }
   return `
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+  <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+    <title>Placeholder</title>
     <rect fill="#${bgColor}" width="1000" height="1000" />
     <path fill="#${color}" d="M587,555.09a14.54,14.54,0,0,1-14.5,14.49h-145A14.54,
     14.54,0,0,1,413,555.09V444.91a14.54,14.54,0,0,1,14.5-14.49h145A14.54,14.54,0,0,
@@ -64,14 +75,21 @@ async function handler(req: RequestType, res: Response, next: NextFunction) {
   try {
     const params = parseParams(req)
 
-    const buffer = await sharp(Buffer.from(createSVG(params)))
-      .resize({ width: params.width, height: params.height })
-      .toFormat(params.ext)
-      .toBuffer()
+    let buffer = Buffer.from(createSVG(params))
+    if (params.ext !== 'svg') {
+      buffer = await sharp(Buffer.from(createSVG(params)))
+        .resize({ width: params.width, height: params.height })
+        .toFormat(params.ext)
+        .toBuffer()
+    }
+
+    let mime = `image/${params.ext}`
+    if (params.ext === 'jpg') mime = `image/jpeg`
+    if (params.ext === 'svg') mime = `image/svg+xml`
 
     res.header({
       'cache-control': `public, max-age=${config.cacheAge}, must-revalidate`,
-      'content-type': `image/${params.ext == 'jpg' ? 'jpeg' : params.ext}`,
+      'content-type': mime,
       'content-length': buffer.length,
     })
     res.end(buffer, 'binary')
@@ -85,7 +103,7 @@ async function handler(req: RequestType, res: Response, next: NextFunction) {
  *
  */
 export default function (app: Application) {
-  const exts = ['', '.webp', '.jpeg', '.jpg', '.png']
+  const exts = ['', ...supporedExt.map((el) => '.' + el)]
   for (let ext of exts) {
     app.get(`/placeholder${ext}`, handler)
   }
