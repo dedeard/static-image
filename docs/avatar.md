@@ -11,18 +11,18 @@ image: https://cdn.dedeard.my.id/og/Generate powerful and fast Avatar Images eas
 
 > Note: _all requests must use_ `GET` _or_ `HEAD` _method, otherwise it will be rejected._
 
-For examples:
-`/avatar/dede ard.jpg?size=600`
+For example:
+`https://cdn.dedeard.my.id/avatar/dede ard.jpg?size=600`
 
 ![Avatar Example](https://cdn.dedeard.my.id/avatar/dede ard.jpg?size=600)
 
 ### Options:
 
-**format=:string**
+**format=:string** OR **f=:string**
 
 Set avatar format.
 
-Value: `webp - jpeg - jpg - png`
+Value: `webp - jpeg - jpg - png - svg`
 
 Default: `webp`
 
@@ -30,7 +30,7 @@ For example: `/avatar/dede ard.png`
 
 <br>
 
-**size=:pixel**
+**size=:pixel** OR **s=:pixel**
 
 Set avatar size in pixel.
 
@@ -42,20 +42,32 @@ For example: `/avatar/dede ard?size=120`
 
 <br />
 
-**color=:hex**
+**maxlength=:pixel** OR **m=:pixel**
 
-Set avatar text color.
+Set avatar maximum character length.
 
-Default: `#111827`
+Value: `1 - 3`
 
-For example: `/avatar/dede ard?color=#000000`
+Default: `2`
+
+For example: `/avatar/dede ard?maxlength=3`
 
 <br />
 
-**bgcolor=:hex**
+**color=:hex** OR **c=:hex**
+
+Set avatar text color.
+
+Default: `111827`
+
+For example: `/avatar/dede ard?color=000000`
+
+<br />
+
+**bgcolor=:hex** OR **b=:hex**
 
 Set avatar background color.
 
-Default: `#f3f4f6`
+Default: `f3f4f6`
 
-For example: `/avatar/dede ard?color=#ffffff`
+For example: `/avatar/dede ard?color=ffffff`

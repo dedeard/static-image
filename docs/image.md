@@ -12,21 +12,24 @@ image: https://cdn.dedeard.my.id/og/Optimize and resize image to speed it up.jpg
 
 > Note: _all requests must use_ `GET` _or_ `HEAD` _method, otherwise it will be rejected._
 
-For examples:
-`/image/width=640,height=480/static.dedeard.my.id/kai.jpg`
+For example:
+`https://cdn.dedeard.my.id/image/w=640,h=480/static.dedeard.my.id/kai.jpg`
 
-![Martial Peak - Yang kai](https://cdn.dedeard.my.id/image/width=640,height=480/static.dedeard.my.id/kai.jpg)
+![Martial Peak - Yang kai](https://cdn.dedeard.my.id/image/w=640,h=480/static.dedeard.my.id/kai.jpg)
 
-### Supported Image Types:
+### Supported Input Image Types:
 
-- GIF
 - JPEG
 - PNG
 - WebP
+- AVIF
+- GIF
+- SVG
+- TIFF
 
 ### Options:
 
-**format=:string**
+**format=:string** OR **f=:string**
 
 Convert image format.
 
@@ -36,7 +39,7 @@ For example: `/image/format=webp/static.dedeard.my.id/kai.jpg`
 
 <br />
 
-**quality=:percentage**
+**quality=:percentage** OR **q=:percentage**
 
 Set new image quality in percentage.
 
@@ -48,7 +51,7 @@ For example: `/image/quality=80/static.dedeard.my.id/kai.jpg`
 
 <br />
 
-**width=:pixel**
+**width=:pixel** OR **w=:pixel**
 
 Set new image width in pixel.
 
@@ -58,7 +61,7 @@ For example: `/image/width=600/static.dedeard.my.id/kai.jpg`
 
 <br />
 
-**height=:pixel**
+**height=:pixel** OR **h=:pixel**
 
 Set new image height in pixel.
 
