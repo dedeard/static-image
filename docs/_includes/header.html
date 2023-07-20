@@ -57,8 +57,8 @@
   </div>
 
   <div
-    class="fixed top-0 left-0 right-0 z-50 hidden border-b transition-all md:block"
-    :class="onTop ? 'border-transparent py-10' : 'bg-white py-5'"
+    class="fixed top-0 left-0 right-0 z-50 hidden md:block border-b transition-all {% if page.url == '/' %} border-transparent bg-transparent py-10 {% else %} bg-white py-5 border-gray-300 {% endif %}"
+    :class="onTop ? '!border-transparent !bg-transparent !py-10' : '!bg-white !py-5 !border-gray-300'"
   >
     <div class="container mx-auto px-3">
       <div class="flex h-8">
