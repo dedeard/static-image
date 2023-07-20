@@ -8,7 +8,7 @@ import { formatColor } from '../shared/libs'
  * Types.
  *
  */
-type RequestType = Request<{ ext?: string }, {}, {}, { [key: string]: string }>
+type RequestType = Request<{ params: string }, {}, {}, { [key: string]: string }>
 
 type Params = {
   ext: 'webp' | 'jpeg' | 'jpg' | 'png' | 'svg'
@@ -22,26 +22,57 @@ type Params = {
  * Config
  *
  */
-const supporedExt = ['webp', 'jpeg', 'jpg', 'png', 'svg']
+const supportedExt = ['webp', 'jpeg', 'jpg', 'png', 'svg']
 
 /**
  * Validate and convert request parameters.
  *
  */
-function parseParams(req: RequestType) {
-  let ext = (path.parse(req.path).ext || '.svg').substring(1)
-  let color = formatColor(req.query.color, config.colors.dark)
-  let bgColor = formatColor(req.query.bgcolor, config.colors.light)
-  let width = 640
-  let height = 480
+function parseParams(req: RequestType): Params {
+  // Extract the file extension from the request path
+  let ext = (path.parse(req.path).ext || '.svg').substring(1) as any;
 
-  if (!supporedExt.includes(ext)) ext = 'svg'
-  const qHeight = Number(req.query.height)
-  if (!isNaN(qHeight) && qHeight > 0) height = qHeight
-  const qWidth = Number(req.query.width)
-  if (!isNaN(qWidth) && qWidth > 0) width = qWidth
+  // Set default colors
+  let color = formatColor(config.colors.dark);
+  let bgColor = formatColor(config.colors.light);
 
-  return { ext, color, bgColor, width, height } as Params
+  // Set default width and height
+  let width = 640;
+  let height = 480;
+
+  // Check if the file extension is supported, otherwise use the default ('svg')
+  if (!supportedExt.includes(ext)) {
+    ext = 'svg';
+  }
+
+  // Extract parameters from the request
+  const params = req.params.params.replace(/\.[^/.]+$/, "");
+  const options: { [key: string]: string } = {};
+
+  // Parse parameters and create options object
+  for (let item of params.split(',')) {
+    const [key, value] = item.split('=');
+    if (key && value) {
+      options[key] = value;
+    }
+  }
+
+  // Update width and height if valid values are provided in the options
+  const qWidth = Number(options.width || options.w);
+  if (!isNaN(qWidth) && qWidth > 0) {
+    width = qWidth;
+  }
+
+  const qHeight = Number(options.height || options.h);
+  if (!isNaN(qHeight) && qHeight > 0) {
+    height = qHeight;
+  }
+
+  // Update color and bgColor if valid values are provided in the options
+  color = formatColor(options.color || options.c, config.colors.dark);
+  bgColor = formatColor(options.bgcolor || options.b, config.colors.light);
+
+  return { ext, color, bgColor, width, height }
 }
 
 /**
@@ -103,8 +134,5 @@ async function handler(req: RequestType, res: Response, next: NextFunction) {
  *
  */
 export default function (app: Application) {
-  const exts = ['', ...supporedExt.map((el) => '.' + el)]
-  for (let ext of exts) {
-    app.get(`/placeholder${ext}`, handler)
-  }
+  app.get(`/placeholder/:params`, handler)
 }

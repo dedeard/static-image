@@ -263,14 +263,14 @@ For example: `/og/Hello World?color=ffffff`
 
 ### URL format:
 
-- `https://cdn.dedeard.my.id/placeholder.:format?:options`
+- `https://cdn.dedeard.my.id/placeholder/:options`
 
 > Note: _all requests must use_ `GET` _or_ `HEAD` _method, otherwise it will be rejected._
 
 For example:
-`https://cdn.dedeard.my.id/placeholder.webp?width=400&height=300`
+`https://cdn.dedeard.my.id/placeholder/width=400,height=300.webp`
 
-<img alt="Placeholder Example" width="400px" src="https://cdn.dedeard.my.id/placeholder.webp?width=400&height=300" />
+<img alt="Placeholder Example" width="400px" src="https://cdn.dedeard.my.id/placeholder/width=400,height=300.webp" />
 
 ### Options:
 
@@ -282,7 +282,7 @@ Value: `webp - jpeg - jpg - png - svg`
 
 Default: `svg`
 
-For example: `/placeholder.jpg`
+For example: `/placeholder/_.jpg`
 
 <br>
 
@@ -294,7 +294,7 @@ Value: `val > 0`
 
 Default: `640`
 
-For example: `/placeholder?width=600`
+For example: `/placeholder/width=600`
 
 <br />
 
@@ -306,7 +306,7 @@ Value: `val > 0`
 
 Default: `480`
 
-For example: `/placeholder?height=600`
+For example: `/placeholder/height=600`
 
 <br />
 
@@ -316,7 +316,7 @@ Set image text color.
 
 Default `111827`
 
-For example: `/placeholder?color=000000`
+For example: `/placeholder/color=000000`
 
 <br />
 
@@ -326,6 +326,6 @@ Set image background color.
 
 Default `f3f4f6`
 
-For example: `/placeholder?color=ffffff`
+For example: `/placeholder/bgcolor=ffffff`
 
 <br />
